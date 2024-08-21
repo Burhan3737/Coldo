@@ -1,4 +1,4 @@
-# 🌟 Welcome to Coldo: The Ultimate Cold Emailing App 🌟
+# 🌟Welcome to Coldo: The Ultimate Cold Emailing App🌟
 
 **Coldo** isn't just another cold emailing tool—it's a powerful, sleek, and efficient app designed to make your cold outreach *impossible to ignore*. Whether you're hustling to close deals, build connections, or launch a killer campaign, Coldo is your go-to platform. 🚀
 
@@ -15,7 +15,7 @@
 ## Features That Make You Unstoppable 💥
 
 - **🔥 CSV Upload & Management**: Easily upload and manage your email lists. No need to fumble around—just drag, drop, and you're set!
-- **🎨 Customizable Templates**: Personalize your outreach with templates that include placeholders like `{{username}}` for that extra personal touch.
+- **🎨 Customizable Templates**: Personalize your outreach with templates that include placeholders for that extra personal touch.
 - **📧 Easy Sending**: Send emails directly from the app with just a few clicks. Choose your template, select your list, and hit send—done!
 - **⚙️ API-Driven**: Built with a robust backend that makes integrations and automation straightforward.
 - **🎯 Targeted Outreach**: Tailor your messaging to specific audiences with precision, increasing your conversion rates.
@@ -26,7 +26,7 @@
    Easily upload a CSV file containing your email list. Coldo will automatically extract and manage the emails for you.
 
 2. **Choose Your Template**:  
-   Select from your custom templates, or create a new one tailored to your outreach needs. Use placeholders like `{{username}}` to personalize your emails.
+   Select from your custom templates, or create a new one tailored to your outreach needs. Use placeholders to personalize your emails.
 
 3. **Start Your Campaign**:  
    Once your list and template are ready, hit send, and watch your emails fly! Coldo ensures your messages are delivered quickly and efficiently.
