@@ -1,4 +1,4 @@
-# 🌟Welcome to Coldo: The Ultimate Cold Emailing App🌟
+# Welcome to Coldo: The Ultimate Cold Emailing App
 
 **Coldo** isn't just another cold emailing tool—it's a powerful, sleek, and efficient app designed to make your cold outreach *impossible to ignore*. Whether you're hustling to close deals, build connections, or launch a killer campaign, Coldo is your go-to platform. 🚀
 
