@@ -9,7 +9,7 @@ export class Email {
   address: string;
 
   @Column()
-  templateId: string;
+  template: any;
 
   @CreateDateColumn()
   createdAt: Date;

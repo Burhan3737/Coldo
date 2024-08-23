@@ -11,7 +11,7 @@ export class EmailService {
     private emailRepository: Repository<Email>,
   ) {}
 
-  async sendEmail(email: string, template: string): Promise<void> {
+  async sendEmail(email: string, template: any): Promise<void> {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -23,13 +23,16 @@ export class EmailService {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: 'Your Subject Here',
-      html: template,
+      subject: template.name,
+      html: template.content,
     };
 
     await transporter.sendMail(mailOptions);
 
-    const newEmail = this.emailRepository.create({ address: email, templateId: template });
+    const newEmail = this.emailRepository.create({
+      address: email,
+      template: template,
+    });
     await this.emailRepository.save(newEmail);
   }
 }
