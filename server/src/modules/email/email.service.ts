@@ -2,33 +2,52 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Email } from './entities/email.entity';
-import * as nodemailer from 'nodemailer';
+const mailjet = require('node-mailjet');
 
 @Injectable()
 export class EmailService {
+  private mailjetClient: any;
+
   constructor(
     @InjectRepository(Email)
     private emailRepository: Repository<Email>,
-  ) {}
+  ) {
+    // Initialize Mailjet client
+    this.mailjetClient = mailjet.apiConnect(
+      process.env.MAILJET_API_KEY,
+      process.env.MAILJET_SECRET_KEY,
+    );
+  }
 
   async sendEmail(email: string, template: any): Promise<void> {
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
+    const request = this.mailjetClient
+      .post('send', { version: 'v3.1' })
+      .request({
+        Messages: [
+          {
+            From: {
+              Email: process.env.EMAIL_USER,
+              Name: 'Your Name or Company',
+            },
+            To: [
+              {
+                Email: email,
+              },
+            ],
+            Subject: template.name,
+            HTMLPart: template.content,
+          },
+        ],
+      });
 
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: template.name,
-      html: template.content,
-    };
+    try {
+      await request;
+      console.log('Email sent successfully');
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
 
-    await transporter.sendMail(mailOptions);
-
+    // Save the email information to the database
     const newEmail = this.emailRepository.create({
       address: email,
       template: template,

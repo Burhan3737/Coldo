@@ -27,6 +27,7 @@
     "@nestjs/platform-express": "^10.4.1",
     "@nestjs/typeorm": "^10.0.2",
     "mongodb": "^5.9.2",
+    "node-mailjet": "^6.0.5",
     "nodemailer": "^6.9.14",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
