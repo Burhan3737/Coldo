@@ -7,7 +7,7 @@ import EmailSender from './components/EmailSender';
 const App = () => {
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Cold Emailing Application</h1>
+      <h1 className="text-2xl font-bold mb-4">COLDO</h1>
       <UploadCsv />
       <ReceiverManager />
       <TemplateManager />
