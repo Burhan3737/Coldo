@@ -1,22 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setTemplates, addTemplate, editTemplate, removeTemplate } from '../features/templateSlice';
-import { fetchTemplates, createTemplate, updateTemplate as apiUpdateTemplate, deleteTemplate } from '../api/api';
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import {
+  setTemplates,
+  addTemplate,
+  editTemplate,
+  removeTemplate,
+} from "../features/templateSlice";
+import {
+  fetchTemplates,
+  createTemplate,
+  updateTemplate as apiUpdateTemplate,
+  deleteTemplate,
+} from "../api/api";
 
 const TemplateManager = () => {
-  const templates = useSelector(state => state.templates);
+  const templates = useSelector((state) => state.templates);
   const dispatch = useDispatch();
-  const [newTemplate, setNewTemplate] = useState({ name: '', content: '' });
+  const [newTemplate, setNewTemplate] = useState({ name: "", content: "" });
 
   useEffect(() => {
-    fetchTemplates().then(response => {
+    fetchTemplates().then((response) => {
       dispatch(setTemplates(response.data));
     });
   }, [dispatch]);
 
   const handleCreate = () => {
-    createTemplate(newTemplate).then(response => {
+    createTemplate(newTemplate).then((response) => {
       dispatch(addTemplate(response.data));
+      setNewTemplate({ name: "", content: "" }); // Clear the editor after creating a template
     });
   };
 
@@ -39,20 +52,54 @@ const TemplateManager = () => {
         type="text"
         placeholder="Template Name"
         value={newTemplate.name}
-        onChange={(e) => setNewTemplate({ ...newTemplate, name: e.target.value })}
+        onChange={(e) =>
+          setNewTemplate({ ...newTemplate, name: e.target.value })
+        }
       />
-      <textarea
-        placeholder="Template Content"
-        value={newTemplate.content}
-        onChange={(e) => setNewTemplate({ ...newTemplate, content: e.target.value })}
+      <CKEditor
+        editor={ClassicEditor}
+        data={newTemplate.content}
+        onChange={(event, editor) => {
+          const data = editor.getData();
+          setNewTemplate({ ...newTemplate, content: data });
+        }}
+        config={{
+          placeholder: "Compose your email template here...",
+          toolbar: [
+            "heading",
+            "|",
+            "bold",
+            "italic",
+            "underline",
+            "strikethrough",
+            "code",
+            "|",
+            "link",
+            "bulletedList",
+            "numberedList",
+            "blockQuote",
+            "|",
+            "alignment",
+            "indent",
+            "outdent",
+            "insertTable",
+            "|",
+            "imageUpload",
+            "mediaEmbed",
+            "|",
+            "undo",
+            "redo",
+            
+          ],
+        }}
       />
       <button onClick={handleCreate}>Create Template</button>
 
       <ul>
-        {templates.map(template => (
+        {templates.map((template) => (
           <li key={template.id}>
             <h3>{template.name}</h3>
-            <p>{template.content}</p>
+            <div dangerouslySetInnerHTML={{ __html: template.content }}></div>
             <button onClick={() => handleUpdate(template.id)}>Update</button>
             <button onClick={() => handleDelete(template.id)}>Delete</button>
           </li>
