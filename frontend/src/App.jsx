@@ -1,7 +1,7 @@
 import React from 'react';
 import UploadCsv from './components/UploadCsv';
 import ReceiverManager from './components/ReceiverManager';
-import TemplateManager from './components/TemplateManager';
+import TemplateManager from './components/Template/TemplateManager';
 import EmailSender from './components/EmailSender';
 
 const App = () => {

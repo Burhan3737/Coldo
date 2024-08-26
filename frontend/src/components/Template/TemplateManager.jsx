@@ -2,18 +2,19 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { MyUploadAdapter } from "./UploadAdapter";
 import {
   setTemplates,
   addTemplate,
   editTemplate,
   removeTemplate,
-} from "../features/templateSlice";
+} from "../../features/templateSlice";
 import {
   fetchTemplates,
   createTemplate,
   updateTemplate as apiUpdateTemplate,
   deleteTemplate,
-} from "../api/api";
+} from "../../api/api";
 
 const TemplateManager = () => {
   const templates = useSelector((state) => state.templates);
@@ -44,7 +45,11 @@ const TemplateManager = () => {
       dispatch(removeTemplate(id));
     });
   };
-
+  function MyCustomUploadAdapterPlugin(editor) {
+    editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+      return new MyUploadAdapter(loader);
+    };
+  }
   return (
     <div>
       <h2>Templates</h2>
@@ -89,10 +94,11 @@ const TemplateManager = () => {
             "|",
             "undo",
             "redo",
-            
           ],
+          extraPlugins: [MyCustomUploadAdapterPlugin],
         }}
       />
+
       <button onClick={handleCreate}>Create Template</button>
 
       <ul>
