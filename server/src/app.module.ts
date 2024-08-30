@@ -6,12 +6,15 @@ import { TemplateModule } from './modules/template/template.module';
 import { UploadImageModule } from './modules/upload-image/upload-image.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { ScheduleModule } from '@nestjs/schedule';
+
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    ScheduleModule.forRoot(),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
       serveRoot: '/uploads',
@@ -28,5 +31,7 @@ import { join } from 'path';
     TemplateModule,
     UploadImageModule,
   ],
+
+
 })
 export class AppModule {}

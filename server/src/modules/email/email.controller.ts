@@ -14,7 +14,7 @@ export class EmailController {
     },
   ) {
     for (const email of sendEmailDto.emails) {
-      await this.emailService.sendEmail(email, sendEmailDto.template);
+      await this.emailService.sendEmail(email, sendEmailDto.template,);
     }
   }
 }
