@@ -29,9 +29,6 @@ export class UploadImageController {
       throw new BadRequestException('No file uploaded');
     }
 
-    // Debugging: log the file object to check its properties
-    console.log('Uploaded file:', file);
-
     // Return the URL to the uploaded file
     return {
       url: `http://localhost:3000/uploads/${file.filename}`,
