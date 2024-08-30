@@ -18,8 +18,17 @@ const UploadCsv = () => {
   };
 
   return (
-    <div className="mb-4">
-      <input type="file" accept=".csv" onChange={handleFileUpload} />
+    <div className="mb-6 flex flex-col items-center">
+      <label htmlFor="csv-upload" className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+        Upload CSV File
+      </label>
+      <input
+        id="csv-upload"
+        type="file"
+        accept=".csv"
+        onChange={handleFileUpload}
+        className="hidden"
+      />
     </div>
   );
 };

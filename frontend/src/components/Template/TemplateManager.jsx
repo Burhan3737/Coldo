@@ -45,69 +45,93 @@ const TemplateManager = () => {
       dispatch(removeTemplate(id));
     });
   };
+
   function MyCustomUploadAdapterPlugin(editor) {
     editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
       return new MyUploadAdapter(loader);
     };
   }
+
   return (
-    <div>
-      <h2>Templates</h2>
-      <input
-        type="text"
-        placeholder="Template Name"
-        value={newTemplate.name}
-        onChange={(e) =>
-          setNewTemplate({ ...newTemplate, name: e.target.value })
-        }
-      />
-      <CKEditor
-        editor={ClassicEditor}
-        data={newTemplate.content}
-        onChange={(event, editor) => {
-          const data = editor.getData();
-          setNewTemplate({ ...newTemplate, content: data });
-        }}
-        config={{
-          placeholder: "Compose your email template here...",
-          toolbar: [
-            "heading",
-            "|",
-            "bold",
-            "italic",
-            "underline",
-            "strikethrough",
-            "code",
-            "|",
-            "link",
-            "bulletedList",
-            "numberedList",
-            "blockQuote",
-            "|",
-            "alignment",
-            "indent",
-            "outdent",
-            "insertTable",
-            "|",
-            "imageUpload",
-            "mediaEmbed",
-            "|",
-            "undo",
-            "redo",
-          ],
-          extraPlugins: [MyCustomUploadAdapterPlugin],
-        }}
-      />
+    <div className="p-6 bg-white rounded-lg shadow-lg">
+      <h2 className="text-2xl font-semibold mb-4">Templates</h2>
+      
+      <div className="mb-6 flex flex-col space-y-4">
+        <input
+          type="text"
+          placeholder="Template Name"
+          value={newTemplate.name}
+          onChange={(e) =>
+            setNewTemplate({ ...newTemplate, name: e.target.value })
+          }
+          className="border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <CKEditor
+          editor={ClassicEditor}
+          data={newTemplate.content}
+          onChange={(event, editor) => {
+            const data = editor.getData();
+            setNewTemplate({ ...newTemplate, content: data });
+          }}
+          config={{
+            placeholder: "Compose your email template here...",
+            toolbar: [
+              "heading",
+              "|",
+              "bold",
+              "italic",
+              "underline",
+              "strikethrough",
+              "code",
+              "|",
+              "link",
+              "bulletedList",
+              "numberedList",
+              "blockQuote",
+              "|",
+              "alignment",
+              "indent",
+              "outdent",
+              "insertTable",
+              "|",
+              "imageUpload",
+              "mediaEmbed",
+              "|",
+              "undo",
+              "redo",
+            ],
+            extraPlugins: [MyCustomUploadAdapterPlugin],
+          }}
+          className="border border-gray-300 rounded-lg"
+        />
 
-      <button onClick={handleCreate}>Create Template</button>
+        <button
+          onClick={handleCreate}
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+        >
+          Create Template
+        </button>
+      </div>
 
-      <ul>
+      <ul className="space-y-4">
         {templates.map((template) => (
-          <li key={template.id}>
-            <h3>{template.name}</h3>
-            <div dangerouslySetInnerHTML={{ __html: template.content }}></div>
-            <button onClick={() => handleUpdate(template.id)}>Update</button>
-            <button onClick={() => handleDelete(template.id)}>Delete</button>
+          <li key={template.id} className="p-4 bg-gray-100 rounded-lg shadow-sm">
+            <h3 className="text-xl font-medium mb-2">{template.name}</h3>
+            <div dangerouslySetInnerHTML={{ __html: template.content }} className="mb-4"></div>
+            <div className="flex space-x-2">
+              <button
+                onClick={() => handleUpdate(template.id)}
+                className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 focus:ring-2 focus:ring-green-400 focus:outline-none"
+              >
+                Update
+              </button>
+              <button
+                onClick={() => handleDelete(template.id)}
+                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 focus:ring-2 focus:ring-red-400 focus:outline-none"
+              >
+                Delete
+              </button>
+            </div>
           </li>
         ))}
       </ul>
